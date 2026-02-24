@@ -65,7 +65,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -130,11 +130,58 @@ STATIC_URL = 'static/'
 # Tell Django to use our custom role-based User model
 AUTH_USER_MODEL = 'accounts.User'
 
+from django.templatetags.static import static
+from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
+
+
+def _sidebar_finance_permission(request):
+    """
+    Only Finance Officers and Super Admins should see the Finance section.
+    """
+    user = request.user
+    if not getattr(user, "is_authenticated", False):
+        return False
+
+    groups = set(user.groups.values_list("name", flat=True))
+    role = getattr(user, "role", None)
+
+    if user.is_superuser or "Super Admin" in groups:
+        return True
+
+    if "Finance" in groups:
+        return True
+
+    try:
+        from accounts.models import User as AccountsUser  # local import to avoid cycles
+
+        return role == AccountsUser.RoleChoices.FINANCE
+    except Exception:
+        # Fall back to a conservative default if models are not ready.
+        return False
+
+
+def _sidebar_system_permission(request):
+    """
+    System configuration should be visible only to technical admins / super admins.
+    """
+    user = request.user
+    if not getattr(user, "is_authenticated", False):
+        return False
+
+    groups = set(user.groups.values_list("name", flat=True))
+    if user.is_superuser or "Super Admin" in groups or "IT Admin" in groups:
+        return True
+
+    return False
+
+
 # Unfold Theme Configuration
 UNFOLD = {
     "SITE_TITLE": "Baptist ICT ERP",
     "SITE_HEADER": "Baptist ICT Command Center",
     "SITE_URL": "/",
+    "DASHBOARD_CALLBACK": "core.views.dashboard_callback",
     "COLORS": {
         "primary": {
             "50": "#eff6ff",
@@ -149,5 +196,105 @@ UNFOLD = {
             "900": "#1e3a8a",
             "950": "#172554",
         },
+    },
+    "SIDEBAR": {
+        "show_search": True,
+        "command_search": False,
+        "show_all_applications": False,
+        "navigation": [
+            {
+                "title": _("Overview"),
+                "separator": False,
+                "collapsible": False,
+                "items": [
+                    {
+                        "title": _("Dashboard"),
+                        "icon": "dashboard",
+                        "link": reverse_lazy("admin:index"),
+                    },
+                ],
+            },
+            {
+                "title": _("Accounts"),
+                "separator": True,
+                "collapsible": True,
+                "items": [
+                    {
+                        "title": _("Users"),
+                        "icon": "people",
+                        "link": reverse_lazy("admin:accounts_user_changelist"),
+                    },
+                ],
+            },
+            {
+                "title": _("Academics"),
+                "separator": False,
+                "collapsible": True,
+                "items": [
+                    {
+                        "title": _("Courses"),
+                        "icon": "menu_book",
+                        "link": reverse_lazy("admin:courses_course_changelist"),
+                    },
+                    {
+                        "title": _("Batches"),
+                        "icon": "class",
+                        "link": reverse_lazy("admin:courses_batch_changelist"),
+                    },
+                ],
+            },
+            {
+                "title": _("Enrollments"),
+                "separator": False,
+                "collapsible": True,
+                "items": [
+                    {
+                        "title": _("Enrollments"),
+                        "icon": "how_to_reg",
+                        "link": reverse_lazy(
+                            "admin:enrollments_enrollment_changelist"
+                        ),
+                    },
+                ],
+            },
+            {
+                "title": _("Finance"),
+                "separator": False,
+                "collapsible": True,
+                "items": [
+                    {
+                        "title": _("Payments"),
+                        "icon": "payments",
+                        "link": reverse_lazy("admin:finance_payment_changelist"),
+                        "permission": _sidebar_finance_permission,
+                    },
+                ],
+            },
+            {
+                "title": _("System"),
+                "separator": True,
+                "collapsible": True,
+                "items": [
+                    {
+                        "title": _("Groups & permissions"),
+                        "icon": "admin_panel_settings",
+                        "link": reverse_lazy("admin:auth_group_changelist"),
+                        "permission": _sidebar_system_permission,
+                    },
+                ],
+            },
+            {
+                "title": _("Help"),
+                "separator": False,
+                "collapsible": True,
+                "items": [
+                    {
+                        "title": _("Staff guide"),
+                        "icon": "help_center",
+                        "link": "/docs/",
+                    },
+                ],
+            },
+        ],
     },
 }
