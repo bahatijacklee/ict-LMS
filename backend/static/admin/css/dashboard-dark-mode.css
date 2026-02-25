@@ -1,0 +1,182 @@
+/* 
+   Dark mode styling for Baptist ICT Dashboard
+   Ensures proper contrast and visibility in dark mode
+*/
+
+/* KPI Cards - Explicitly style for dark mode */
+@media (prefers-color-scheme: dark) {
+    /* Override Unfold dark background if needed */
+    .dashboard-kpi-card {
+        background-color: #1e293b;
+        border-color: #334155;
+        color: #f1f5f9;
+    }
+
+    .dashboard-kpi-card .kpi-label {
+        color: #cbd5e1;
+    }
+
+    .dashboard-kpi-card .kpi-value {
+        color: #f1f5f9;
+    }
+
+    .dashboard-kpi-card .kpi-description {
+        color: #94a3b8;
+    }
+
+    /* Widget Cards */
+    .dashboard-widget-card {
+        background-color: #1e293b;
+        border-color: #334155;
+    }
+
+    .dashboard-widget-card .widget-title {
+        color: #f1f5f9;
+        border-bottom-color: #334155;
+    }
+
+    /* Tables in dark mode */
+    .dashboard-table {
+        color: #e2e8f0;
+    }
+
+    .dashboard-table thead {
+        background-color: rgba(30, 41, 59, 0.8);
+        border-bottom-color: #334155;
+        color: #cbd5e1;
+    }
+
+    .dashboard-table tbody tr {
+        border-bottom-color: #334155;
+    }
+
+    .dashboard-table tbody tr:hover {
+        background-color: rgba(71, 85, 105, 0.3);
+    }
+
+    /* Quick Actions */
+    .dashboard-quick-actions a {
+        border-color: #334155;
+        color: #f1f5f9;
+    }
+
+    .dashboard-quick-actions a:hover {
+        border-color: #3b82f6;
+        background-color: rgba(59, 130, 246, 0.1);
+    }
+
+    .dashboard-quick-actions a .action-label {
+        color: #f1f5f9;
+    }
+
+    .dashboard-quick-actions a .action-description {
+        color: #cbd5e1;
+    }
+
+    /* Instructor Load Card */
+    .dashboard-instructor-load {
+        background-color: #1e293b;
+        border-color: #334155;
+    }
+
+    .dashboard-instructor-load .load-item {
+        background-color: rgba(71, 85, 105, 0.3);
+        color: #f1f5f9;
+    }
+
+    .dashboard-instructor-load .load-item .instructor-name {
+        color: #f1f5f9;
+    }
+
+    /* Status badges */
+    .badge-active {
+        background-color: #064e3b;
+        color: #dcfce7;
+    }
+
+    .badge-completed {
+        background-color: #0c4a6e;
+        color: #cffafe;
+    }
+
+    .badge-suspended {
+        background-color: #7c2d12;
+        color: #fed7aa;
+    }
+
+    .badge-dropped {
+        background-color: #7f1d1d;
+        color: #fecaca;
+    }
+
+    .badge-overdue {
+        background-color: #7f1d1d;
+        color: #fecaca;
+    }
+
+    .badge-overdue-label {
+        background-color: #991b1b;
+        color: #fee2e2;
+    }
+
+    .badge-success {
+        background-color: #065f46;
+        color: #d1fae5;
+    }
+
+    .badge-warning {
+        background-color: #78350f;
+        color: #fef3c7;
+    }
+
+    .badge-info {
+        background-color: #0e3192;
+        color: #bfdbfe;
+    }
+
+    .badge-emerald {
+        background-color: #065f46;
+        color: #d1fae5;
+    }
+
+    .badge-purple {
+        background-color: #4c1d95;
+        color: #e9d5ff;
+    }
+
+    .badge-cyan {
+        background-color: #0e4a5d;
+        color: #cffafe;
+    }
+}
+
+/* Ensure cards are properly styled in light mode too */
+@media (prefers-color-scheme: light) {
+    .dashboard-kpi-card {
+        background-color: #ffffff;
+        border-color: #e2e8f0;
+        color: #1e293b;
+    }
+
+    .dashboard-kpi-card .kpi-label {
+        color: #64748b;
+    }
+
+    .dashboard-kpi-card .kpi-value {
+        color: #0f172a;
+    }
+
+    .dashboard-kpi-card .kpi-description {
+        color: #94a3b8;
+    }
+
+    .dashboard-widget-card {
+        background-color: #ffffff;
+        border-color: #e2e8f0;
+    }
+
+    .dashboard-widget-card .widget-title {
+        color: #1e293b;
+        border-bottom-color: #e2e8f0;
+    }
+}
