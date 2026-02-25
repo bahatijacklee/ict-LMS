@@ -1,6 +1,7 @@
 {% extends "admin/base.html" %}
 {% load i18n %}
 {% load core_filters %}
+{% include "admin/includes/dashboard_tables.html" %}
 
 {% block title %}
     {% if subtitle %}
@@ -29,22 +30,26 @@
     {% if dashboard_kpis %}
         <div class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
             {% for kpi in dashboard_kpis %}
-                <div class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-                    <p class="text-sm font-medium text-slate-500 dark:text-slate-400">
-                        {{ kpi.label }}
-                    </p>
-                    <p class="mt-2 text-2xl font-semibold text-slate-900 dark:text-slate-50">
-                        {% if "Payments" in kpi.label or "Outstanding" in kpi.label or "revenue" in kpi.label|lower %}
-                            {{ kpi.value|format_ksh }}
-                        {% else %}
-                            {{ kpi.value|default:"0" }}
-                        {% endif %}
-                    </p>
-                    {% if kpi.description %}
-                        <p class="mt-1 text-xs text-slate-400">
-                            {{ kpi.description }}
-                        </p>
-                    {% endif %}
+                <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md dark:border-slate-800 dark:bg-slate-900">
+                    <div class="flex items-start justify-between">
+                        <div class="flex-1">
+                            <p class="text-sm font-medium text-slate-500 dark:text-slate-400">
+                                {{ kpi.label }}
+                            </p>
+                            <p class="mt-3 text-3xl font-bold text-slate-900 dark:text-slate-50">
+                                {% if "Payments" in kpi.label or "Outstanding" in kpi.label or "revenue" in kpi.label|lower %}
+                                    {{ kpi.value|format_ksh }}
+                                {% else %}
+                                    {{ kpi.value|default:"0" }}
+                                {% endif %}
+                            </p>
+                            {% if kpi.description %}
+                                <p class="mt-2 text-xs text-slate-500 dark:text-slate-400">
+                                    {{ kpi.description }}
+                                </p>
+                            {% endif %}
+                        </div>
+                    </div>
                 </div>
             {% endfor %}
         </div>
@@ -53,9 +58,9 @@
     <div class="grid grid-cols-1 gap-6 xl:grid-cols-3">
         <div class="space-y-6 xl:col-span-2">
             <!-- Primary Widget: Varies by Role -->
-            <div class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-                <div class="mb-4 flex items-center justify-between">
-                    <h2 class="text-sm font-semibold text-slate-900 dark:text-slate-50">
+            <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+                <div class="mb-4 flex items-center justify-between border-b border-slate-100 pb-4 dark:border-slate-800">
+                    <h2 class="text-lg font-semibold text-slate-900 dark:text-slate-50">
                         {% if widget_title %}
                             {{ widget_title }}
                         {% elif role_flags.is_registrar %}
@@ -98,7 +103,7 @@
                                         </td>
                                         <td class="py-2 pr-4">
                                             <span class="inline-flex rounded-full bg-blue-100 px-2 py-1 text-xs font-semibold text-blue-800 dark:bg-blue-900/30 dark:text-blue-200">
-                                                {{ batch.start_date|date:"M d, Y" }}
+                                                {{ batch.start_date|format_date_short }}
                                             </span>
                                         </td>
                                     </tr>
@@ -132,7 +137,7 @@
                                         </td>
                                         <td class="py-2 pr-4">
                                             <span class="inline-flex rounded-full bg-yellow-100 px-2 py-1 text-xs font-semibold text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-200">
-                                                {{ enrollment.batch.end_date|date:"M d, Y" }}
+                                                {{ enrollment.batch.end_date|format_date_short }}
                                             </span>
                                         </td>
                                     </tr>
@@ -177,7 +182,7 @@
                                             </span>
                                         </td>
                                         <td class="py-2 pr-4">
-                                            {{ enrollment.created_at|date:"M d, Y H:i" }}
+                                            {{ enrollment.created_at|date:"b d, Y" }}
                                         </td>
                                     </tr>
                                 {% endfor %}
@@ -192,9 +197,9 @@
             </div>
 
             <!-- Secondary Widget: Varies by Role -->
-            <div class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-                <div class="mb-4 flex items-center justify-between">
-                    <h2 class="text-sm font-semibold text-slate-900 dark:text-slate-50">
+            <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+                <div class="mb-4 flex items-center justify-between border-b border-slate-100 pb-4 dark:border-slate-800">
+                    <h2 class="text-lg font-semibold text-slate-900 dark:text-slate-50">
                         {% if secondary_widget_title %}
                             {{ secondary_widget_title }}
                         {% elif role_flags.is_it_admin %}
@@ -232,7 +237,7 @@
                                             {{ staff.email }}
                                         </td>
                                         <td class="py-2 pr-4">
-                                            {{ staff.date_joined|date:"M d, Y" }}
+                                            {{ staff.date_joined|format_date_short }}
                                         </td>
                                     </tr>
                                 {% endfor %}
@@ -256,15 +261,20 @@
                             </thead>
                             <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
                                 {% for debtor in top_debtors %}
-                                    <tr>
+                                    <tr class="{% if debtor.is_overdue %}bg-red-50 dark:bg-red-950/20{% endif %}">
                                         <td class="py-2 pr-4">
                                             {{ debtor.student }}
+                                            {% if debtor.is_overdue %}
+                                                <span class="ml-2 inline-flex rounded-full bg-red-200 px-1.5 py-0.5 text-xs font-semibold text-red-900 dark:bg-red-900/50 dark:text-red-100">
+                                                    {% trans "OVERDUE" %}
+                                                </span>
+                                            {% endif %}
                                         </td>
                                         <td class="py-2 pr-4">
                                             {{ debtor.batch.course.code }} — {{ debtor.batch.name }}
                                         </td>
                                         <td class="py-2 pr-4">
-                                            <span class="inline-flex rounded-full bg-red-100 px-2 py-1 text-xs font-semibold text-red-800 dark:bg-red-900/30 dark:text-red-200">
+                                            <span class="inline-flex rounded-full {% if debtor.is_overdue %}bg-red-200 text-red-900 dark:bg-red-900/50 dark:text-red-100{% else %}bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-200{% endif %} px-2 py-1 text-xs font-semibold">
                                                 {{ debtor.outstanding|format_ksh }}
                                             </span>
                                         </td>
@@ -295,6 +305,32 @@
                                         </td>
                                         <td class="py-2 pr-4">
                                             {{ enrollment.get_status_display }}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                <!-- Super Admin: Revenue by Course -->
+                {% elif role_flags.is_super_admin and revenue_by_course %}
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full text-left text-sm">
+                            <thead class="border-b border-slate-200 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:border-slate-800 dark:text-slate-400">
+                                <tr>
+                                    <th scope="col" class="py-2 pr-4">{% trans "Course" %}</th>
+                                    <th scope="col" class="py-2 pr-4">{% trans "Total Revenue" %}</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                                {% for course_revenue in revenue_by_course %}
+                                    <tr>
+                                        <td class="py-2 pr-4">
+                                            {{ course_revenue.enrollment__batch__course__code }} — {{ course_revenue.enrollment__batch__course__title }}
+                                        </td>
+                                        <td class="py-2 pr-4">
+                                            <span class="inline-flex rounded-full bg-emerald-100 px-2 py-1 text-xs font-semibold text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-200">
+                                                {{ course_revenue.total_revenue|format_ksh }}
+                                            </span>
                                         </td>
                                     </tr>
                                 {% endfor %}
@@ -332,7 +368,7 @@
                                             {{ payment.get_method_display }}
                                         </td>
                                         <td class="py-2 pr-4">
-                                            {{ payment.payment_date|date:"M d, Y" }}
+                                            {{ payment.payment_date|format_date_short }}
                                         </td>
                                     </tr>
                                 {% endfor %}
@@ -343,6 +379,8 @@
                     <p class="text-sm text-slate-500 dark:text-slate-400">
                         {% if role_flags.is_finance %}
                             {% trans "No outstanding balances to track." %}
+                        {% elif role_flags.is_super_admin %}
+                            {% trans "No revenue data available yet." %}
                         {% else %}
                             {% trans "No recent payments yet." %}
                         {% endif %}
@@ -354,8 +392,8 @@
         <div class="space-y-4">
             <!-- IT Admin: Instructor Load Card -->
             {% if role_flags.is_it_admin and instructor_load %}
-                <div class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-                    <h2 class="mb-3 text-sm font-semibold text-slate-900 dark:text-slate-50">
+                <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+                    <h2 class="mb-4 text-lg font-semibold text-slate-900 dark:text-slate-50">
                         {% trans "Instructor Load" %}
                     </h2>
                     <div class="space-y-2">
@@ -374,8 +412,8 @@
             {% endif %}
 
             <!-- Quick Actions Card (Always Visible) -->
-            <div class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900" aria-label="{% trans 'Quick actions' %}">
-                <h2 class="mb-3 text-sm font-semibold text-slate-900 dark:text-slate-50">
+            <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900" aria-label="{% trans 'Quick actions' %}">
+                <h2 class="mb-4 text-lg font-semibold text-slate-900 dark:text-slate-50 border-b border-slate-100 pb-4 dark:border-slate-800">
                     {% trans "Quick actions" %}
                 </h2>
 

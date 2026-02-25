@@ -1,5 +1,6 @@
 from django import template
 from decimal import Decimal
+from datetime import date
 
 register = template.Library()
 
@@ -21,3 +22,19 @@ def format_ksh(value):
         return f"KES {formatted}"
     except (ValueError, TypeError):
         return "KES 0.00"
+
+
+@register.filter
+def format_date_short(value):
+    """
+    Format a date object as "MMM dd, YYYY" (e.g., "Feb 25, 2026").
+    Usage: {{ date_object|format_date_short }}
+    Consistent date formatting across dashboard.
+    """
+    if value is None:
+        return ""
+    
+    if isinstance(value, date):
+        return value.strftime("%b %d, %Y")
+    
+    return str(value)

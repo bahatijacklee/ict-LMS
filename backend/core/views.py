@@ -127,7 +127,7 @@ def dashboard_callback(request, context: dict) -> dict:
         get_active_enrollments_per_course,
         get_approaching_completion_enrollments,
     )
-    from finance.services import get_top_debtors
+    from finance.services import get_top_debtors, get_revenue_by_course
     from courses.services import (
         get_active_courses_count,
         get_upcoming_batches,
@@ -234,11 +234,6 @@ def dashboard_callback(request, context: dict) -> dict:
         kpis.extend(
             [
                 {
-                    "label": "Payments today",
-                    "value": finance_stats["payments_today"],
-                    "description": "Total amount received today.",
-                },
-                {
                     "label": "Payments this month",
                     "value": finance_stats["payments_this_month"],
                     "description": "Total amount received this month.",
@@ -247,6 +242,11 @@ def dashboard_callback(request, context: dict) -> dict:
                     "label": "Outstanding fees",
                     "value": finance_stats["outstanding_total"],
                     "description": "Sum of unpaid balances across all enrollments.",
+                },
+                {
+                    "label": "Payments today",
+                    "value": finance_stats["payments_today"],
+                    "description": "Total amount received today.",
                 },
             ]
         )
@@ -278,8 +278,14 @@ def dashboard_callback(request, context: dict) -> dict:
         context_data["instructor_load"] = get_instructor_load()
         context_data["widget_title"] = "Upcoming Batches"
         context_data["secondary_widget_title"] = "Recently Created Staff"
+    elif flags["is_super_admin"]:
+        # Super Admin gets finance overview with revenue breakdown
+        context_data["recent_payments"] = get_recent_payments()
+        context_data["revenue_by_course"] = get_revenue_by_course()
+        context_data["widget_title"] = "Recent Payments"
+        context_data["secondary_widget_title"] = "Revenue by Course"
     else:
-        # Super Admin gets standard widgets
+        # Default for other staff without specific role
         context_data["recent_enrollments"] = get_recent_enrollments()
         context_data["recent_payments"] = get_recent_payments()
         context_data["widget_title"] = "Recent Enrollments"

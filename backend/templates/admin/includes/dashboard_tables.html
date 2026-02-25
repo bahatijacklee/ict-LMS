@@ -1,0 +1,55 @@
+{% comment %}
+Shared dashboard table styling and components.
+Used across all dashboard widgets for consistent data presentation.
+{% endcomment %}
+
+{% block table_styles %}
+<style>
+    .dashboard-table {
+        width: 100%;
+        text-align: left;
+        font-size: 0.875rem;
+    }
+
+    .dashboard-table thead {
+        border-bottom: 1px solid #e2e8f0;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        color: #475569;
+        background-color: #f8fafc;
+    }
+
+    .dark .dashboard-table thead {
+        border-bottom-color: #1e293b;
+        color: #cbd5e1;
+        background-color: rgba(30, 41, 59, 0.5);
+    }
+
+    .dashboard-table th {
+        padding: 0.75rem 1rem;
+    }
+
+    .dashboard-table tbody tr {
+        border-bottom: 1px solid #f1f5f9;
+        transition: background-color 0.15s ease-in-out;
+    }
+
+    .dark .dashboard-table tbody tr {
+        border-bottom-color: #1e293b;
+    }
+
+    .dashboard-table td {
+        padding: 0.75rem 1rem;
+    }
+
+    .dashboard-table tbody tr:hover {
+        background-color: #f8fafc;
+    }
+
+    .dark .dashboard-table tbody tr:hover {
+        background-color: rgba(71, 85, 105, 0.1);
+    }
+</style>
+{% endblock %}
