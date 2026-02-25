@@ -128,6 +128,12 @@ def dashboard_callback(request, context: dict) -> dict:
         get_approaching_completion_enrollments,
     )
     from finance.services import get_top_debtors
+    from courses.services import (
+        get_active_courses_count,
+        get_upcoming_batches,
+        get_instructor_load,
+    )
+    from accounts.services import get_recently_created_staff
     
     user: User = request.user  # type: ignore[assignment]
     flags = _get_role_flags(user)
@@ -177,28 +183,6 @@ def dashboard_callback(request, context: dict) -> dict:
             ]
         )
 
-    # Super Admin KPIs (includes base + finance)
-    elif flags["is_super_admin"]:
-        kpis.extend(
-            [
-                {
-                    "label": "Payments today",
-                    "value": finance_stats["payments_today"],
-                    "description": "Total amount received today.",
-                },
-                {
-                    "label": "Payments this month",
-                    "value": finance_stats["payments_this_month"],
-                    "description": "Total amount received this month.",
-                },
-                {
-                    "label": "Outstanding fees",
-                    "value": finance_stats["outstanding_total"],
-                    "description": "Sum of unpaid balances across all enrollments.",
-                },
-            ]
-        )
-
     # Registrar KPIs
     elif flags["is_registrar"]:
         kpis.clear()  # Registrar gets registrar-focused dashboard
@@ -218,6 +202,51 @@ def dashboard_callback(request, context: dict) -> dict:
                     "label": "Active enrollments",
                     "value": enrollment_stats["active_enrollments"],
                     "description": "Students currently active in a batch.",
+                },
+            ]
+        )
+
+    # IT Admin KPIs
+    elif flags["is_it_admin"]:
+        kpis.clear()  # IT Admin gets IT-focused dashboard
+        kpis.extend(
+            [
+                {
+                    "label": "Active courses",
+                    "value": get_active_courses_count(),
+                    "description": "Courses with scheduled batches.",
+                },
+                {
+                    "label": "Active batches",
+                    "value": enrollment_stats["active_batches"],
+                    "description": "Teaching groups currently configured.",
+                },
+                {
+                    "label": "Total enrollments",
+                    "value": enrollment_stats["total_enrollments"],
+                    "description": "All enrollments across all batches.",
+                },
+            ]
+        )
+
+    # Super Admin KPIs (includes base + finance)
+    elif flags["is_super_admin"]:
+        kpis.extend(
+            [
+                {
+                    "label": "Payments today",
+                    "value": finance_stats["payments_today"],
+                    "description": "Total amount received today.",
+                },
+                {
+                    "label": "Payments this month",
+                    "value": finance_stats["payments_this_month"],
+                    "description": "Total amount received this month.",
+                },
+                {
+                    "label": "Outstanding fees",
+                    "value": finance_stats["outstanding_total"],
+                    "description": "Sum of unpaid balances across all enrollments.",
                 },
             ]
         )
@@ -242,8 +271,15 @@ def dashboard_callback(request, context: dict) -> dict:
         context_data["approaching_enrollments"] = get_approaching_completion_enrollments()
         context_data["widget_title"] = "Recent Enrollments"
         context_data["secondary_widget_title"] = "Approaching Completion"
+    elif flags["is_it_admin"]:
+        # IT Admin gets upcoming batches and recently created staff
+        context_data["upcoming_batches"] = get_upcoming_batches()
+        context_data["recent_staff"] = get_recently_created_staff()
+        context_data["instructor_load"] = get_instructor_load()
+        context_data["widget_title"] = "Upcoming Batches"
+        context_data["secondary_widget_title"] = "Recently Created Staff"
     else:
-        # Super Admin and IT Admin get standard widgets
+        # Super Admin gets standard widgets
         context_data["recent_enrollments"] = get_recent_enrollments()
         context_data["recent_payments"] = get_recent_payments()
         context_data["widget_title"] = "Recent Enrollments"
