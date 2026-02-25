@@ -176,6 +176,37 @@ def _sidebar_system_permission(request):
     return False
 
 
+def _sidebar_registrar_permission(request):
+    """
+    Registrar should only see enrollment-related sections, not course/batch management.
+    """
+    user = request.user
+    if not getattr(user, "is_authenticated", False):
+        return False
+
+    groups = set(user.groups.values_list("name", flat=True))
+    return "Registrar" in groups or "Admissions" in groups
+
+
+def _sidebar_it_admin_permission(request):
+    """
+    IT Admin should see courses, batches, and user management.
+    """
+    user = request.user
+    if not getattr(user, "is_authenticated", False):
+        return False
+
+    groups = set(user.groups.values_list("name", flat=True))
+    if user.is_superuser or "Super Admin" in groups or "IT Admin" in groups:
+        return True
+
+    try:
+        from accounts.models import User as AccountsUser
+        return getattr(user, "role", None) == AccountsUser.RoleChoices.IT_ADMIN
+    except Exception:
+        return False
+
+
 # Unfold Theme Configuration
 UNFOLD = {
     "SITE_TITLE": "Baptist ICT ERP",
@@ -218,6 +249,7 @@ UNFOLD = {
                 "title": _("Accounts"),
                 "separator": True,
                 "collapsible": True,
+                "permission": _sidebar_it_admin_permission,
                 "items": [
                     {
                         "title": _("Users"),
@@ -230,6 +262,7 @@ UNFOLD = {
                 "title": _("Academics"),
                 "separator": False,
                 "collapsible": True,
+                "permission": _sidebar_it_admin_permission,
                 "items": [
                     {
                         "title": _("Courses"),

@@ -63,3 +63,22 @@ def get_recent_payments(limit: int = 5):
         .order_by("-payment_date", "-created_at")[:limit]
     )
 
+
+def get_top_debtors(limit: int = 5):
+    """
+    Return enrollments with the highest outstanding balances.
+    Useful for Finance Officer to prioritize collection efforts.
+    """
+    return (
+        Enrollment.objects.annotate(
+            paid_amount=Coalesce(Sum("payments__amount"), Decimal("0")),
+            outstanding=ExpressionWrapper(
+                F("agreed_fee") - F("paid_amount"),
+                output_field=DecimalField(max_digits=10, decimal_places=2),
+            )
+        )
+        .filter(outstanding__gt=Decimal("0"))
+        .select_related("student", "batch", "batch__course")
+        .order_by("-outstanding")[:limit]
+    )
+
