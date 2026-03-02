@@ -1,0 +1,1 @@
+# Course and batch endpoints
