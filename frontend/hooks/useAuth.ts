@@ -56,13 +56,10 @@ export function useAuth() {
       const decoded = decodeToken(token);
 
       if (decoded) {
-        setState({
-          user: null, // User data will be fetched when needed
-          tokens: null,
-          isLoading: false,
-          error: null,
+        setState((prev) => ({
+          ...prev,
           isAuthenticated: true,
-        });
+        }));
       }
     }
   }, []);
@@ -96,15 +93,15 @@ export function useAuth() {
         });
 
         // Redirect to role-based dashboard
-        const dashboarunknown) {
+        const dashboardPath = ROLE_DASHBOARDS[user.role] || '/student/dashboard';
+        router.push(dashboardPath);
+
+        return { success: true, error: null };
+      } catch (error: unknown) {
         const errorMessage =
           error instanceof Error
             ? error.message
-            :atch (error: any) {
-        const errorMessage =
-          error.response?.data?.message ||
-          error.response?.data?.detail ||
-          'Login failed. Please try again.';
+            : 'Unknown error occurred';
 
         setState((prev) => ({
           ...prev,
@@ -135,13 +132,6 @@ export function useAuth() {
   }, [router]);
 
   /**
-   * Check current authentication status
-   */
-  const isAuthenticated = useCallback(() => {
-    return checkAuth();
-  }, []);
-
-  /**
    * Get current user role
    */
   const getRole = useCallback(() => {
@@ -162,3 +152,4 @@ export function useAuth() {
     getRole,
   };
 }
+

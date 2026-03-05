@@ -49,13 +49,26 @@ export default function DashboardLayout({
     );
   }
 
-  const navLinks = [
-    { href: '/student/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-    { href: '/student/courses', label: 'My Courses', icon: BookOpen },
-    { href: '/student/attendance', label: 'Attendance', icon: CalendarCheck },
-    { href: '/student/fees', label: 'Fees', icon: DollarSign },
-    { href: '/student/profile', label: 'Profile', icon: User },
-  ];
+  // Role-based navigation
+  const getNavLinks = () => {
+    if (user?.role === 'INSTRUCTOR') {
+      return [
+        { href: '/instructor/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+        { href: '/instructor/courses', label: 'My Courses', icon: BookOpen },
+        { href: '/instructor/profile', label: 'Profile', icon: User },
+      ];
+    }
+    // Default to student navigation
+    return [
+      { href: '/student/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+      { href: '/student/courses', label: 'My Courses', icon: BookOpen },
+      { href: '/student/attendance', label: 'Attendance', icon: CalendarCheck },
+      { href: '/student/fees', label: 'Fees', icon: DollarSign },
+      { href: '/student/profile', label: 'Profile', icon: User },
+    ];
+  };
+
+  const navLinks = getNavLinks();
 
   return (
     <div className="min-h-screen bg-page">
