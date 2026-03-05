@@ -8,8 +8,7 @@
 import Link from 'next/link';
 import { BookOpen, Users, TrendingUp, Calendar, CheckCircle, XCircle, Clock } from 'lucide-react';
 import type { Enrollment } from '@/types';
-import { formatCurrency, calculatePercentage } from '@/lib/utils';
-import { cn } from '@/lib/utils';
+import { formatCurrency, cn } from '@/lib/utils';
 
 interface CourseCardProps {
   enrollment: Enrollment;
@@ -65,7 +64,7 @@ export default function CourseCard({ enrollment }: CourseCardProps) {
           <div className="flex items-center gap-2 text-body text-text-secondary">
             <Users className="w-4 h-4" />
             <span className="text-small">
-              Batch: {enrollment.batch?.name || 'Not assigned'}
+              Batch: {typeof enrollment.batch === 'object' && enrollment.batch?.name || 'Not assigned'}
             </span>
           </div>
 

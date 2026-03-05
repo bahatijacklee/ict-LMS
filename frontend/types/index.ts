@@ -6,10 +6,11 @@ export type UserRole = 'STUDENT' | 'INSTRUCTOR' | 'FINANCE' | 'IT_ADMIN' | 'SUPE
 
 export interface User {
   id: string;
+  username: string;
   first_name: string;
   last_name: string;
   email: string;
-  phone: string;
+  phone_number?: string;
   role: UserRole;
   is_active: boolean;
   date_joined: string;
@@ -43,24 +44,26 @@ export interface AuthState {
 
 export interface Course {
   id: string;
-  code: string;
-  title: string;
-  description: string;
-  base_fee: number;
-  duration_weeks: number;
-  level: 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED';
+  course_code: string;
+  name: string;
+  description?: string;
+  fee: number;
+  duration_weeks?: number;
+  level?: string;
   created_at: string;
   updated_at: string;
 }
 
 export interface Batch {
   id: string;
-  course: Course;
-  instructor: User;
+  name: string;
+  course: string | Course;
+  instructor?: string | User;
   start_date: string;
   end_date: string;
   max_students: number;
   current_students: number;
+  is_active: boolean;
   created_at: string;
   updated_at: string;
 }
@@ -69,11 +72,18 @@ export type EnrollmentStatus = 'ACTIVE' | 'COMPLETED' | 'SUSPENDED' | 'DROPPED';
 
 export interface Enrollment {
   id: string;
-  student: User;
-  batch: Batch;
+  student: string | User;
+  batch: string | Batch;
+  course: Course;
   status: EnrollmentStatus;
   agreed_fee: number;
+  balance: number;
+  progress: number;
+  attendance_percentage: number | null;
+  current_grade: string | null;
   enrolled_date: string;
+  completion_date?: string | null;
+  notes?: string;
   created_at: string;
   updated_at: string;
 }
@@ -82,17 +92,19 @@ export interface Enrollment {
  * Payment Types
  */
 
-export type PaymentMethod = 'CASH' | 'BANK' | 'MPESA' | 'CHEQUE';
-export type PaymentStatus = 'PENDING' | 'COMPLETED' | 'FAILED' | 'CANCELLED';
+export type PaymentMethod = 'CASH' | 'BANK' | 'M_PESA' | 'CHEQUE';
+export type PaymentStatus = 'PENDING' | 'VERIFIED' | 'REJECTED';
 
 export interface Payment {
   id: string;
   enrollment: Enrollment;
-  amount: number;
+  amount_paid: number;
   method: PaymentMethod;
   status: PaymentStatus;
-  transaction_ref: string;
+  transaction_ref?: string;
   payment_date: string;
+  verified_at?: string | null;
+  verified_by?: string | User | null;
   receipt_url?: string;
   notes?: string;
   created_at: string;
@@ -103,13 +115,14 @@ export interface Payment {
  * Attendance Types
  */
 
-export type AttendanceStatus = 'PRESENT' | 'ABSENT' | 'LATE';
+export type AttendanceStatus = 'PRESENT' | 'ABSENT' | 'LATE' | 'EXCUSED';
 
 export interface AttendanceRecord {
   id: string;
   enrollment: Enrollment;
   date: string;
-  time: string;
+  status: AttendanceStatus;
+  remark: string;
   status: AttendanceStatus;
   notes?: string;
   created_at: string;

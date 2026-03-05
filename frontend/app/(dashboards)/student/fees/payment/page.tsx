@@ -28,7 +28,6 @@ type PaymentMethod = 'M_PESA' | 'BANK' | 'CASH' | 'CHEQUE';
 type Step = 1 | 2 | 3;
 
 export default function MakePaymentPage() {
-  const router = useRouter();
   const [step, setStep] = useState<Step>(1);
   const [selectedEnrollmentId, setSelectedEnrollmentId] = useState('');
   const [amount, setAmount] = useState('');

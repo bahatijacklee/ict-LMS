@@ -17,7 +17,7 @@ import {
   isAuthenticated as checkAuth,
 } from '@/lib/auth';
 import { ROLE_DASHBOARDS } from '@/lib/constants';
-import type { User, AuthTokens, AuthState } from '@/types';
+import type { User, AuthState } from '@/types';
 
 interface LoginCredentials {
   email: string;
@@ -50,15 +50,19 @@ export function useAuth() {
     if (typeof window === 'undefined') return;
 
     const token = getAccessToken();
+    const isAuth = checkAuth();
 
-    if (token && checkAuth()) {
+    if (token && isAuth) {
       const decoded = decodeToken(token);
 
       if (decoded) {
-        setState((prev) => ({
-          ...prev,
+        setState({
+          user: null, // User data will be fetched when needed
+          tokens: null,
+          isLoading: false,
+          error: null,
           isAuthenticated: true,
-        }));
+        });
       }
     }
   }, []);
@@ -92,11 +96,11 @@ export function useAuth() {
         });
 
         // Redirect to role-based dashboard
-        const dashboard = ROLE_DASHBOARDS[user.role] || '/student/dashboard';
-        router.push(dashboard);
-
-        return { success: true, user };
-      } catch (error: any) {
+        const dashboarunknown) {
+        const errorMessage =
+          error instanceof Error
+            ? error.message
+            :atch (error: any) {
         const errorMessage =
           error.response?.data?.message ||
           error.response?.data?.detail ||
@@ -155,7 +159,6 @@ export function useAuth() {
     // Methods
     login,
     logout,
-    isAuthenticated,
     getRole,
   };
 }

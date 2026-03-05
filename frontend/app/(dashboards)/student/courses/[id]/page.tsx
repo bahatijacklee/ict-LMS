@@ -23,6 +23,7 @@ import {
 import { useEnrollment } from '@/hooks/useEnrollments';
 import { Skeleton } from '@/components/shared/Skeleton';
 import { formatCurrency, formatDate } from '@/lib/utils';
+import type { Enrollment } from '@/types';
 
 type TabKey = 'overview' | 'materials' | 'attendance' | 'grades' | 'assignments';
 
@@ -213,8 +214,8 @@ export default function CourseDetailPage() {
         <div className="p-6">
           {activeTab === 'overview' && <OverviewTab enrollment={enrollment} />}
           {activeTab === 'materials' && <MaterialsTab />}
-          {activeTab === 'attendance' && <AttendanceTab enrollmentId={enrollmentId} />}
-          {activeTab === 'grades' && <GradesTab enrollmentId={enrollmentId} />}
+          {activeTab === 'attendance' && <AttendanceTab />}
+          {activeTab === 'grades' && <GradesTab />}
           {activeTab === 'assignments' && <AssignmentsTab />}
         </div>
       </div>
@@ -223,7 +224,7 @@ export default function CourseDetailPage() {
 }
 
 // Overview Tab Component
-function OverviewTab({ enrollment }: { enrollment: any }) {
+function OverviewTab({ enrollment }: { enrollment: Enrollment }) {
   return (
     <div className="space-y-6">
       <div>
@@ -318,7 +319,7 @@ function MaterialsTab() {
 }
 
 // Attendance Tab Component
-function AttendanceTab({ enrollmentId }: { enrollmentId: string }) {
+function AttendanceTab() {
   return (
     <div className="text-center py-12">
       <Calendar className="w-12 h-12 text-text-secondary mx-auto mb-4" />
@@ -331,7 +332,7 @@ function AttendanceTab({ enrollmentId }: { enrollmentId: string }) {
 }
 
 // Grades Tab Component
-function GradesTab({ enrollmentId }: { enrollmentId: string }) {
+function GradesTab() {
   return (
     <div className="text-center py-12">
       <Award className="w-12 h-12 text-text-secondary mx-auto mb-4" />

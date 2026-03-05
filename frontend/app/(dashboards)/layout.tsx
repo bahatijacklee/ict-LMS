@@ -4,7 +4,16 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/useAuth';
 import { getInitials } from '@/lib/utils';
-import { LogOut, Menu, X } from 'lucide-react';
+import {
+  LogOut,
+  Menu,
+  X,
+  LayoutDashboard,
+  BookOpen,
+  CalendarCheck,
+  DollarSign,
+  User,
+} from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { isAuthenticated } from '@/lib/auth';
 
@@ -41,11 +50,11 @@ export default function DashboardLayout({
   }
 
   const navLinks = [
-    { href: '/student/dashboard', label: 'Dashboard', icon: '📊' },
-    { href: '/student/courses', label: 'My Courses', icon: '📚' },
-    { href: '/student/attendance', label: 'Attendance', icon: '✓' },
-    { href: '/student/fees', label: 'Fees', icon: '💰' },
-    { href: '/student/profile', label: 'Profile', icon: '👤' },
+    { href: '/student/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+    { href: '/student/courses', label: 'My Courses', icon: BookOpen },
+    { href: '/student/attendance', label: 'Attendance', icon: CalendarCheck },
+    { href: '/student/fees', label: 'Fees', icon: DollarSign },
+    { href: '/student/profile', label: 'Profile', icon: User },
   ];
 
   return (
@@ -97,17 +106,20 @@ export default function DashboardLayout({
 
           {/* Navigation */}
           <nav className="p-md space-y-sm">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setIsSidebarOpen(false)}
-                className="block px-md py-2 rounded-lg text-neutral-600 hover:bg-brand-light hover:text-brand transition-colors"
-              >
-                <span className="mr-base">{link.icon}</span>
-                {link.label}
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const Icon = link.icon;
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setIsSidebarOpen(false)}
+                  className="flex items-center gap-base px-md py-2 rounded-lg text-neutral-600 hover:bg-brand-light hover:text-brand transition-colors"
+                >
+                  <Icon className="w-5 h-5" />
+                  {link.label}
+                </Link>
+              );
+            })}
           </nav>
 
           {/* User Card */}
