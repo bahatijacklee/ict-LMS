@@ -106,20 +106,20 @@ export default function Home() {
           <div className="space-y-lg animate-enter-up">
             <div className="badge-glow inline-flex items-center gap-sm rounded-full border border-brand/20 bg-white/70 px-4 py-2 text-sm font-medium text-brand backdrop-blur-sm">
               <span className="h-2 w-2 animate-pulse rounded-full bg-success" />
-              Unified Campus Operations Platform
+              Trusted Platform for Academic Operations
             </div>
 
             <h1 className="text-h1 font-bold leading-tight text-neutral-900 md:text-5xl">
-              Empower Learning.
+              Run Your Campus with
               <br />
               <span className="hero-gradient-shift bg-linear-to-r from-brand to-brand-dark bg-clip-text text-transparent">
-                Simplify Management.
+                Confidence and Clarity.
               </span>
             </h1>
 
             <p className="max-w-xl text-lg text-neutral-600">
-              Baptist ICT&apos;s unified portal connects students, instructors, and administrators to streamline
-              attendance, grading, communication, and finance in one intelligent workspace.
+              One connected workspace for attendance, grading, payments, and communication so your teams spend
+              less time chasing records and more time supporting learners.
             </p>
 
             <div className="flex flex-col gap-md pt-sm sm:flex-row">
@@ -127,15 +127,30 @@ export default function Home() {
                 href="/login"
                 className="group inline-flex items-center justify-center gap-sm rounded-lg bg-brand px-lg py-3 text-white transition-all hover:-translate-y-0.5 hover:bg-brand-dark hover:shadow-lg"
               >
-                Get Started
+                Launch Dashboard
                 <ArrowRight size={20} className="transition-transform group-hover:translate-x-1" />
               </Link>
               <Link
                 href="#features"
                 className="inline-flex items-center justify-center rounded-lg border-2 border-brand px-lg py-3 text-brand transition-colors hover:bg-brand-light"
               >
-                Explore Features
+                See How It Works
               </Link>
+            </div>
+
+            <div className="flex flex-col gap-2 text-sm text-neutral-600 sm:flex-row sm:gap-5">
+              <p className="inline-flex items-center gap-2">
+                <CheckCircle size={16} className="text-success" />
+                Setup-ready for departments
+              </p>
+              <p className="inline-flex items-center gap-2">
+                <CheckCircle size={16} className="text-success" />
+                Role-based workflows
+              </p>
+              <p className="inline-flex items-center gap-2">
+                <CheckCircle size={16} className="text-success" />
+                Secure by default
+              </p>
             </div>
 
             <div id="impact" className="grid grid-cols-3 gap-sm pt-md md:max-w-md">
@@ -198,9 +213,10 @@ export default function Home() {
         <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-[linear-gradient(180deg,rgba(0,102,204,0.08)_0%,rgba(0,102,204,0)_100%)]" />
         <div className="mx-auto max-w-7xl space-y-2xl px-md">
           <div className="space-y-base text-center">
-            <h2 className="text-h2 font-bold text-neutral-900 md:text-4xl">Core Features</h2>
+            <p className="text-sm font-semibold uppercase tracking-[0.14em] text-brand">What You Can Do</p>
+            <h2 className="text-h2 font-bold text-neutral-900 md:text-4xl">Tools Built for Daily Academic Work</h2>
             <p className="mx-auto max-w-2xl text-lg text-neutral-600">
-              Everything you need to operate a modern training institution from a single platform.
+              Designed for real campus operations, from roll call and grading to finance tracking and oversight.
             </p>
           </div>
 
@@ -232,9 +248,9 @@ export default function Home() {
       <section className="relative overflow-hidden bg-brand py-2xl text-white">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(255,255,255,0.2),transparent_32%),radial-gradient(circle_at_85%_70%,rgba(249,115,22,0.25),transparent_38%)]" />
         <div className="relative mx-auto max-w-4xl space-y-lg px-md text-center">
-          <h2 className="text-h2 font-bold md:text-4xl">Ready to Transform Your Campus?</h2>
+          <h2 className="text-h2 font-bold md:text-4xl">Ready to Modernize Campus Operations?</h2>
           <p className="text-lg text-brand-light">
-            Join hundreds of students and instructors using Baptist ICT&apos;s unified platform.
+            Start with your current teams and scale as you grow. Baptist ICT ERP is designed to evolve with your institution.
           </p>
 
           <div className="flex flex-col justify-center gap-md pt-sm sm:flex-row">
@@ -242,13 +258,13 @@ export default function Home() {
               href="/login"
               className="cta-button-shine inline-flex items-center justify-center gap-sm rounded-lg bg-white px-lg py-3 font-semibold text-brand transition-all hover:-translate-y-1 hover:bg-brand-light hover:shadow-xl"
             >
-              Start Now <ArrowRight size={20} />
+              Get Started Today <ArrowRight size={20} />
             </Link>
             <Link
               href="/contact"
               className="rounded-lg border-2 border-white px-lg py-3 font-semibold text-white transition-all hover:-translate-y-1 hover:bg-white hover:text-brand hover:shadow-xl"
             >
-              Contact Support
+              Talk to Support
             </Link>
           </div>
         </div>
