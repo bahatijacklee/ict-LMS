@@ -124,6 +124,50 @@ button {
   animation: floatSoft 4.8s ease-in-out infinite;
 }
 
+@keyframes shineSweep {
+  0% {
+    transform: translateX(-130%) skewX(-14deg);
+  }
+  100% {
+    transform: translateX(130%) skewX(-14deg);
+  }
+}
+
+.feature-card {
+  transition: transform 260ms ease, box-shadow 260ms ease, border-color 260ms ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 36px rgba(11, 32, 59, 0.12);
+  border-color: rgba(0, 102, 204, 0.28);
+}
+
+.feature-icon {
+  transition: transform 260ms ease;
+}
+
+.feature-card:hover .feature-icon {
+  transform: scale(1.06) rotate(-4deg);
+}
+
+.cta-button-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-button-shine::after {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: -40%;
+  width: 34%;
+  height: 140%;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0));
+  animation: shineSweep 3.6s ease-in-out infinite;
+  pointer-events: none;
+}
+
 .hero-orb {
   position: absolute;
   border-radius: 9999px;
@@ -150,6 +194,15 @@ button {
   .animate-enter-up,
   .animate-enter-scale,
   .animate-float-soft {
+    animation: none !important;
+  }
+
+  .feature-card,
+  .feature-icon {
+    transition: none !important;
+  }
+
+  .cta-button-shine::after {
     animation: none !important;
   }
 }

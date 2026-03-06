@@ -112,7 +112,7 @@ export default function Home() {
             <h1 className="text-h1 font-bold leading-tight text-neutral-900 md:text-5xl">
               Empower Learning.
               <br />
-              <span className="bg-gradient-to-r from-brand to-brand-dark bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-brand to-brand-dark bg-clip-text text-transparent">
                 Simplify Management.
               </span>
             </h1>
@@ -179,7 +179,8 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="features" className="bg-neutral-50 py-3xl">
+      <section id="features" className="relative overflow-hidden bg-neutral-50 py-3xl">
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-[linear-gradient(180deg,rgba(0,102,204,0.08)_0%,rgba(0,102,204,0)_100%)]" />
         <div className="mx-auto max-w-7xl space-y-2xl px-md">
           <div className="space-y-base text-center">
             <h2 className="text-h2 font-bold text-neutral-900 md:text-4xl">Core Features</h2>
@@ -194,14 +195,18 @@ export default function Home() {
               return (
                 <article
                   key={feature.title}
-                  className="animate-enter-up rounded-xl border border-neutral-200 bg-white p-lg shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg"
+                  className="feature-card group animate-enter-up rounded-xl border border-neutral-200 bg-white p-lg shadow-sm"
                   style={{ animationDelay: `${index * 90}ms` }}
                 >
-                  <div className={`mb-md flex h-12 w-12 items-center justify-center rounded-lg ${feature.accent}`}>
+                  <div className={`feature-icon mb-md flex h-12 w-12 items-center justify-center rounded-lg ${feature.accent}`}>
                     <Icon size={24} />
                   </div>
                   <h3 className="mb-base text-h3 font-bold text-neutral-900">{feature.title}</h3>
                   <p className="text-neutral-600">{feature.description}</p>
+                  <div className="mt-md inline-flex items-center gap-2 text-sm font-semibold text-brand opacity-80 transition-all group-hover:gap-3 group-hover:opacity-100">
+                    Learn more
+                    <ArrowRight size={16} className="transition-transform group-hover:translate-x-0.5" />
+                  </div>
                 </article>
               );
             })}
@@ -209,8 +214,9 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-brand py-2xl text-white">
-        <div className="mx-auto max-w-4xl space-y-lg px-md text-center">
+      <section className="relative overflow-hidden bg-brand py-2xl text-white">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(255,255,255,0.2),transparent_32%),radial-gradient(circle_at_85%_70%,rgba(249,115,22,0.25),transparent_38%)]" />
+        <div className="relative mx-auto max-w-4xl space-y-lg px-md text-center">
           <h2 className="text-h2 font-bold md:text-4xl">Ready to Transform Your Campus?</h2>
           <p className="text-lg text-brand-light">
             Join hundreds of students and instructors using Baptist ICT&apos;s unified platform.
@@ -219,13 +225,13 @@ export default function Home() {
           <div className="flex flex-col justify-center gap-md pt-sm sm:flex-row">
             <Link
               href="/login"
-              className="inline-flex items-center justify-center gap-sm rounded-lg bg-white px-lg py-3 font-semibold text-brand transition-all hover:-translate-y-0.5 hover:bg-brand-light"
+              className="cta-button-shine inline-flex items-center justify-center gap-sm rounded-lg bg-white px-lg py-3 font-semibold text-brand transition-all hover:-translate-y-1 hover:bg-brand-light hover:shadow-xl"
             >
               Start Now <ArrowRight size={20} />
             </Link>
             <Link
               href="/contact"
-              className="rounded-lg border-2 border-white px-lg py-3 font-semibold text-white transition-colors hover:bg-white hover:text-brand"
+              className="rounded-lg border-2 border-white px-lg py-3 font-semibold text-white transition-all hover:-translate-y-1 hover:bg-white hover:text-brand hover:shadow-xl"
             >
               Contact Support
             </Link>
