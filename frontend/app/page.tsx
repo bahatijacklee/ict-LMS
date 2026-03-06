@@ -68,13 +68,13 @@ export default function Home() {
           </div>
 
           <nav className="hidden items-center gap-lg md:flex">
-            <Link href="#features" className="text-neutral-600 transition-colors hover:text-brand">
+            <Link href="#features" className="nav-link-fancy text-neutral-600 transition-colors hover:text-brand">
               Features
             </Link>
-            <Link href="#impact" className="text-neutral-600 transition-colors hover:text-brand">
+            <Link href="#impact" className="nav-link-fancy text-neutral-600 transition-colors hover:text-brand">
               Impact
             </Link>
-            <Link href="/about" className="text-neutral-600 transition-colors hover:text-brand">
+            <Link href="/about" className="nav-link-fancy text-neutral-600 transition-colors hover:text-brand">
               About
             </Link>
           </nav>
@@ -104,7 +104,7 @@ export default function Home() {
 
         <div className="relative mx-auto grid max-w-7xl items-center gap-xl px-md md:grid-cols-2">
           <div className="space-y-lg animate-enter-up">
-            <div className="inline-flex items-center gap-sm rounded-full border border-brand/20 bg-white/70 px-4 py-2 text-sm font-medium text-brand backdrop-blur-sm">
+            <div className="badge-glow inline-flex items-center gap-sm rounded-full border border-brand/20 bg-white/70 px-4 py-2 text-sm font-medium text-brand backdrop-blur-sm">
               <span className="h-2 w-2 animate-pulse rounded-full bg-success" />
               Unified Campus Operations Platform
             </div>
@@ -112,7 +112,7 @@ export default function Home() {
             <h1 className="text-h1 font-bold leading-tight text-neutral-900 md:text-5xl">
               Empower Learning.
               <br />
-              <span className="bg-linear-to-r from-brand to-brand-dark bg-clip-text text-transparent">
+              <span className="hero-gradient-shift bg-linear-to-r from-brand to-brand-dark bg-clip-text text-transparent">
                 Simplify Management.
               </span>
             </h1>
@@ -175,6 +175,21 @@ export default function Home() {
                 <p className="text-sm font-bold text-neutral-900">KES 1.2M Collected</p>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-y border-neutral-200 bg-white py-lg">
+        <div className="mx-auto flex max-w-7xl flex-col items-center gap-md px-md md:flex-row md:justify-between">
+          <p className="text-sm font-semibold uppercase tracking-[0.16em] text-neutral-500">
+            Trusted Across Campus Units
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-sm">
+            <span className="trusted-pill">Admissions</span>
+            <span className="trusted-pill">Academic Office</span>
+            <span className="trusted-pill">Examinations</span>
+            <span className="trusted-pill">Finance Office</span>
+            <span className="trusted-pill">Student Affairs</span>
           </div>
         </div>
       </section>
@@ -254,17 +269,17 @@ export default function Home() {
             <h4 className="font-semibold">Product</h4>
             <ul className="space-y-sm text-sm text-neutral-400">
               <li>
-                <Link href="#features" className="transition-colors hover:text-white">
+                <Link href="#features" className="footer-link-fancy transition-colors hover:text-white">
                   Features
                 </Link>
               </li>
               <li>
-                <Link href="/pricing" className="transition-colors hover:text-white">
+                <Link href="/pricing" className="footer-link-fancy transition-colors hover:text-white">
                   Pricing
                 </Link>
               </li>
               <li>
-                <Link href="/security" className="transition-colors hover:text-white">
+                <Link href="/security" className="footer-link-fancy transition-colors hover:text-white">
                   Security
                 </Link>
               </li>
@@ -275,17 +290,17 @@ export default function Home() {
             <h4 className="font-semibold">Company</h4>
             <ul className="space-y-sm text-sm text-neutral-400">
               <li>
-                <Link href="/about" className="transition-colors hover:text-white">
+                <Link href="/about" className="footer-link-fancy transition-colors hover:text-white">
                   About
                 </Link>
               </li>
               <li>
-                <Link href="/blog" className="transition-colors hover:text-white">
+                <Link href="/blog" className="footer-link-fancy transition-colors hover:text-white">
                   Blog
                 </Link>
               </li>
               <li>
-                <Link href="/careers" className="transition-colors hover:text-white">
+                <Link href="/careers" className="footer-link-fancy transition-colors hover:text-white">
                   Careers
                 </Link>
               </li>
@@ -296,17 +311,17 @@ export default function Home() {
             <h4 className="font-semibold">Legal</h4>
             <ul className="space-y-sm text-sm text-neutral-400">
               <li>
-                <Link href="/privacy" className="transition-colors hover:text-white">
+                <Link href="/privacy" className="footer-link-fancy transition-colors hover:text-white">
                   Privacy
                 </Link>
               </li>
               <li>
-                <Link href="/terms" className="transition-colors hover:text-white">
+                <Link href="/terms" className="footer-link-fancy transition-colors hover:text-white">
                   Terms
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="transition-colors hover:text-white">
+                <Link href="/contact" className="footer-link-fancy transition-colors hover:text-white">
                   Contact
                 </Link>
               </li>

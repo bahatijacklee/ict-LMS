@@ -133,6 +133,98 @@ button {
   }
 }
 
+@keyframes gradientShift {
+  0%,
+  100% {
+    background-size: 100% 100%;
+    background-position: 0% 50%;
+  }
+  50% {
+    background-size: 130% 130%;
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes pulseGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 102, 204, 0.18);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(0, 102, 204, 0.05);
+  }
+}
+
+.nav-link-fancy {
+  position: relative;
+}
+
+.nav-link-fancy::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -7px;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #0066cc, #f97316);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 220ms ease;
+}
+
+.nav-link-fancy:hover::after {
+  transform: scaleX(1);
+}
+
+.badge-glow {
+  animation: pulseGlow 2.8s ease-in-out infinite;
+}
+
+.hero-gradient-shift {
+  background-image: linear-gradient(90deg, #0066cc, #004b99, #f97316);
+  background-size: 130% 130%;
+  animation: gradientShift 4.2s ease-in-out infinite;
+}
+
+.trusted-pill {
+  border: 1px solid #d9e7f5;
+  background: #f8fbff;
+  color: #2b4a68;
+  border-radius: 9999px;
+  padding: 0.42rem 0.8rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition: transform 220ms ease, border-color 220ms ease, background-color 220ms ease;
+}
+
+.trusted-pill:hover {
+  transform: translateY(-2px);
+  border-color: #bcd8f2;
+  background: #eef6ff;
+}
+
+.footer-link-fancy {
+  position: relative;
+}
+
+.footer-link-fancy::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 100%;
+  height: 1px;
+  background: #f97316;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 220ms ease;
+}
+
+.footer-link-fancy:hover::after {
+  transform: scaleX(1);
+}
+
 .feature-card {
   transition: transform 260ms ease, box-shadow 260ms ease, border-color 260ms ease;
 }
@@ -203,6 +295,11 @@ button {
   }
 
   .cta-button-shine::after {
+    animation: none !important;
+  }
+
+  .badge-glow,
+  .hero-gradient-shift {
     animation: none !important;
   }
 }
