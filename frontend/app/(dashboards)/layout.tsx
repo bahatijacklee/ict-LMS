@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { useAuth } from '@/hooks/useAuth';
 import { getInitials } from '@/lib/utils';
 import {
@@ -23,9 +23,20 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const router = useRouter();
+  const pathname = usePathname();
   const { user, logout } = useAuth();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
+
+  // Helper function to check if a link is active
+  const isActivePath = (linkHref: string) => {
+    // Normalize paths for comparison
+    const normalizedLink = linkHref.toLowerCase();
+    const normalizedPathname = pathname?.toLowerCase() || '';
+    
+    // Check if pathname starts with the link path
+    return normalizedPathname.startsWith(normalizedLink);
+  };
 
   useEffect(() => {
     // Check if user is authenticated
@@ -79,6 +90,8 @@ export default function DashboardLayout({
             <button
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
               className="p-base hover:bg-neutral-100 rounded-lg transition-colors"
+              aria-label="Toggle navigation menu"
+              aria-expanded={isSidebarOpen}
             >
               {isSidebarOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -121,12 +134,20 @@ export default function DashboardLayout({
           <nav className="p-md space-y-sm">
             {navLinks.map((link) => {
               const Icon = link.icon;
+              const isActive = isActivePath(link.href);
               return (
                 <Link
                   key={link.href}
                   href={link.href}
                   onClick={() => setIsSidebarOpen(false)}
-                  className="flex items-center gap-base px-md py-2 rounded-lg text-neutral-600 hover:bg-brand-light hover:text-brand transition-colors"
+                  className={`
+                    flex items-center gap-base px-md py-2 rounded-lg transition-colors
+                    ${isActive 
+                      ? 'nav-link-active' 
+                      : 'text-neutral-600 hover:bg-brand-light hover:text-brand'
+                    }
+                  `}
+                  aria-current={isActive ? 'page' : undefined}
                 >
                   <Icon className="w-5 h-5" />
                   {link.label}

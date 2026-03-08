@@ -3,6 +3,7 @@
 import { getFullName } from '@/lib/utils';
 import { useAuth } from '@/hooks/useAuth';
 import { BookOpen, DollarSign, CheckCircle, AlertCircle } from 'lucide-react';
+import { TrendIndicator } from '@/components/shared/TrendIndicator';
 
 export default function StudentDashboard() {
   const { user } = useAuth();
@@ -12,6 +13,10 @@ export default function StudentDashboard() {
     feesOwed: 5000,
     attendancePercentage: 92,
     upcomingDeadlines: 2,
+    // Trend indicators (simulated - would come from API in production)
+    attendanceTrend: { direction: 'up' as const, percentage: 5 },
+    feesTrend: { direction: 'down' as const, percentage: 2 },
+    coursesTrend: { direction: 'up' as const, percentage: 1 },
   };
 
   return (
@@ -88,9 +93,16 @@ export default function StudentDashboard() {
           <div className="flex items-start justify-between">
             <div>
               <p className="text-small text-neutral-600">Attendance Rate</p>
-              <p className="text-2xl font-bold text-success">
-                {mockMetrics.attendancePercentage}%
-              </p>
+              <div className="flex items-baseline gap-base mt-2">
+                <p className="text-2xl font-bold text-success">
+                  {mockMetrics.attendancePercentage}%
+                </p>
+                <TrendIndicator 
+                  direction={mockMetrics.attendanceTrend.direction}
+                  percentage={mockMetrics.attendanceTrend.percentage}
+                  size="sm"
+                />
+              </div>
             </div>
             <div className="w-12 h-12 rounded-lg bg-success-light flex items-center justify-center">
               <CheckCircle size={24} className="text-success" />
@@ -134,17 +146,17 @@ export default function StudentDashboard() {
           {[1, 2, 3].map((_, i) => (
             <div
               key={i}
-              className="p-md border border-neutral-200 rounded-lg hover:shadow-md transition-shadow"
+              className="card-hover p-md bg-white border border-neutral-200 rounded-lg cursor-pointer"
             >
               <div className="space-y-base">
-                <h3 className="font-semibold">Web Development 101</h3>
+                <h3 className="font-semibold text-neutral-900">Web Development 101</h3>
                 <p className="text-small text-neutral-600">Mr. Kipchoge</p>
                 <div className="flex items-center justify-between pt-base">
                   <div className="text-small">
                     <p className="text-neutral-600">Progress</p>
-                    <p className="font-semibold">60% Complete</p>
+                    <p className="font-semibold text-neutral-900">60% Complete</p>
                   </div>
-                  <div className="w-16 h-16 rounded-full border-4 border-brand-light flex items-center justify-center">
+                  <div className="w-16 h-16 rounded-full border-4 border-brand-light flex items-center justify-center bg-brand-light/30">
                     <span className="text-sm font-bold text-brand">60%</span>
                   </div>
                 </div>

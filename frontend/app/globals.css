@@ -299,6 +299,73 @@ button {
   background: radial-gradient(circle, rgba(249, 115, 22, 0.2) 0%, rgba(249, 115, 22, 0) 70%);
 }
 
+/* Active Navigation Link */
+.nav-link-active {
+  @apply bg-brand-light text-brand;
+  border-left: 3px solid #0066CC;
+  padding-left: calc(1rem - 3px);
+  transition: all 220ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* Card Hover Lift Effect */
+.card-hover {
+  transition: transform 260ms cubic-bezier(0.2, 0.7, 0.2, 1), 
+              box-shadow 260ms cubic-bezier(0.2, 0.7, 0.2, 1),
+              border-color 260ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 15px rgba(0, 102, 204, 0.15);
+  border-color: rgba(0, 102, 204, 0.28);
+}
+
+/* Button Base Styles */
+.btn {
+  @apply inline-flex items-center justify-center gap-sm px-md py-2 rounded-md font-semibold text-sm transition-all duration-220 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand disabled:opacity-50 disabled:cursor-not-allowed;
+  min-height: 44px;
+}
+
+/* Button Primary Variant */
+.btn-primary {
+  @apply bg-brand text-white hover:bg-brand-dark;
+  box-shadow: 0 1px 2px rgba(0, 102, 204, 0.1);
+}
+
+.btn-primary:hover:not(:disabled) {
+  box-shadow: 0 4px 12px rgba(0, 102, 204, 0.25);
+  transform: translateY(-1px);
+}
+
+/* Button Secondary Variant */
+.btn-secondary {
+  @apply border-2 border-brand text-brand hover:bg-brand-light;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+/* Button Danger Variant */
+.btn-danger {
+  @apply bg-error text-white hover:bg-error-dark;
+  box-shadow: 0 1px 2px rgba(239, 68, 68, 0.1);
+}
+
+.btn-danger:hover:not(:disabled) {
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+  transform: translateY(-1px);
+}
+
+/* Button Ghost Variant */
+.btn-ghost {
+  @apply text-brand hover:bg-brand-light bg-transparent border-0;
+}
+
+.btn-ghost:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-enter-up,
   .animate-enter-scale,
@@ -318,6 +385,12 @@ button {
   .badge-glow,
   .hero-gradient-shift {
     animation: none !important;
+  }
+
+  .nav-link-active,
+  .card-hover,
+  .btn {
+    transition: none !important;
   }
 }
 

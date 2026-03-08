@@ -83,6 +83,7 @@ const config: Config = {
         'fade-in': 'fadeIn 0.3s ease-in-out',
         'slide-up': 'slideUp 0.3s ease-out',
         'spin-slow': 'spin 3s linear infinite',
+        'lift': 'lift 260ms cubic-bezier(0.2, 0.7, 0.2, 1) forwards',
       },
       keyframes: {
         fadeIn: {
@@ -93,6 +94,14 @@ const config: Config = {
           '0%': { opacity: '0', transform: 'translateY(10px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
+        lift: {
+          '0%': { transform: 'translateY(0)' },
+          '100%': { transform: 'translateY(-6px)' },
+        },
+      },
+      transitionDuration: {
+        '220': '220ms',
+        '260': '260ms',
       },
       // Responsive container
       maxWidth: {
