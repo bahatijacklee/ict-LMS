@@ -1,12 +1,35 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { getFullName } from '@/lib/utils';
 import { useAuth } from '@/hooks/useAuth';
 import { BookOpen, DollarSign, CheckCircle, AlertCircle } from 'lucide-react';
 import { TrendIndicator } from '@/components/shared/TrendIndicator';
+import { useLoading } from '@/hooks/useLoading';
+import {
+  DashboardKPISkeleton,
+  CoursesSectionSkeleton,
+  AlertBannerSkeleton,
+  PageLoadingSkeleton,
+} from '@/components/shared/Skeleton';
+import { ErrorBoundary } from '@/components/shared/ErrorBoundary';
 
 export default function StudentDashboard() {
   const { user } = useAuth();
+  const { isLoading, error, startLoading, stopLoading } = useLoading();
+  const [dataLoaded, setDataLoaded] = useState(false);
+
+  // Simulate data loading on mount
+  useEffect(() => {
+    startLoading();
+    // Simulate API call delay
+    const timer = setTimeout(() => {
+      setDataLoaded(true);
+      stopLoading();
+    }, 800);
+
+    return () => clearTimeout(timer);
+  }, [startLoading, stopLoading]);
 
   const mockMetrics = {
     activeCourses: 3,
@@ -19,41 +42,47 @@ export default function StudentDashboard() {
     coursesTrend: { direction: 'up' as const, percentage: 1 },
   };
 
+  // Show full loading skeleton while data is loading
+  if (isLoading || !dataLoaded) {
+    return <PageLoadingSkeleton />;
+  }
+
   return (
-    <div className="p-md lg:p-lg space-y-lg">
-      {/* Header */}
-      <div className="space-y-base">
-        <h1 className="text-h1 font-bold">
-          Welcome back, {user?.first_name}! 👋
-        </h1>
-        <p className="text-neutral-600">
-          Today is {new Date().toLocaleDateString('en-KE', {
-            weekday: 'long',
-            month: 'long',
-            day: 'numeric',
-            year: 'numeric',
-          })}
-        </p>
-      </div>
-
-      {/* Alert Banner */}
-      {mockMetrics.feesOwed > 0 && (
-        <div className="p-md bg-error-light border-l-4 border-error rounded-lg flex items-start gap-base">
-          <AlertCircle size={24} className="text-error flex-shrink-0 mt-xs" />
-          <div>
-            <p className="font-semibold text-error">Fees Outstanding</p>
-            <p className="text-sm text-neutral-600">
-              You have Ksh {mockMetrics.feesOwed.toLocaleString()} pending. Please make a payment to avoid late fees.
-            </p>
-            <button className="mt-base text-sm font-semibold text-error hover:text-error-dark">
-              Pay Now →
-            </button>
-          </div>
+    <ErrorBoundary>
+      <div className="p-md lg:p-lg space-y-lg">
+        {/* Header */}
+        <div className="space-y-base">
+          <h1 className="text-h1 font-bold">
+            Welcome back, {user?.first_name}! 👋
+          </h1>
+          <p className="text-neutral-600">
+            Today is {new Date().toLocaleDateString('en-KE', {
+              weekday: 'long',
+              month: 'long',
+              day: 'numeric',
+              year: 'numeric',
+            })}
+          </p>
         </div>
-      )}
 
-      {/* KPI Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-md">
+        {/* Alert Banner */}
+        {mockMetrics.feesOwed > 0 && (
+          <div className="p-md bg-error-light border-l-4 border-error rounded-lg flex items-start gap-base">
+            <AlertCircle size={24} className="text-error flex-shrink-0 mt-xs" />
+            <div>
+              <p className="font-semibold text-error">Fees Outstanding</p>
+              <p className="text-sm text-neutral-600">
+                You have Ksh {mockMetrics.feesOwed.toLocaleString()} pending. Please make a payment to avoid late fees.
+              </p>
+              <button className="mt-base text-sm font-semibold text-error hover:text-error-dark">
+                Pay Now →
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* KPI Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-md">
         {/* Active Courses */}
         <div className="bg-white rounded-lg p-lg shadow-md border border-neutral-200 space-y-base">
           <div className="flex items-start justify-between">
@@ -187,6 +216,7 @@ export default function StudentDashboard() {
           </button>
         </div>
       </div>
-    </div>
+      </div>
+    </ErrorBoundary>
   );
 }
