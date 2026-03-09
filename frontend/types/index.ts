@@ -123,7 +123,6 @@ export interface AttendanceRecord {
   date: string;
   status: AttendanceStatus;
   remark: string;
-  status: AttendanceStatus;
   notes?: string;
   created_at: string;
   updated_at: string;

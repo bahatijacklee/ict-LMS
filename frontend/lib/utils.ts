@@ -21,7 +21,7 @@ export function formatCurrency(amount: number, currency: string = 'Ksh'): string
 export function formatDate(dateString: string, format: 'short' | 'long' | 'full' = 'short'): string {
   const date = new Date(dateString);
 
-  const options: Intl.DateTimeFormatOptions = {
+  const options: Record<'short' | 'long' | 'full', Intl.DateTimeFormatOptions> = {
     short: { month: 'short', day: 'numeric', year: 'numeric' },
     long: { month: 'long', day: 'numeric', year: 'numeric' },
     full: { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' },
