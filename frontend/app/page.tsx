@@ -135,59 +135,59 @@ export default function Home() {
             </h1>
 
             {/* Subheadline */}
-            <p className="max-w-xl text-lg text-neutral-600 leading-relaxed">
+            <p className="max-w-2xl text-lg text-neutral-600 leading-relaxed">
               Stop juggling multiple apps. Baptist ICT brings everything you need into one beautiful, intuitive platform. From course materials to grades, payments to schedules—it's all here.
             </p>
 
             {/* CTAs */}
-            <div className="flex flex-col gap-md pt-sm sm:flex-row">
+            <div className="flex flex-col gap-lg pt-lg sm:flex-row">
               <Link
                 href="/login"
-                className="group inline-flex items-center justify-center gap-sm rounded-lg bg-brand px-lg py-3 text-white font-semibold transition-all hover:-translate-y-0.5 hover:bg-brand-dark hover:shadow-lg"
+                className="group inline-flex items-center justify-center gap-sm rounded-lg bg-brand px-xl py-3 text-white font-semibold text-base shadow-lg transition-all hover:-translate-y-1 hover:bg-brand-dark hover:shadow-xl"
               >
                 Start Your Journey
                 <ArrowRight size={20} className="transition-transform group-hover:translate-x-1" />
               </Link>
               <Link
                 href="#how-it-works"
-                className="inline-flex items-center justify-center rounded-lg border-2 border-brand px-lg py-3 font-semibold text-brand transition-colors hover:bg-brand-light"
+                className="inline-flex items-center justify-center rounded-lg border-2 border-brand px-xl py-3 font-semibold text-brand transition-all hover:bg-brand-light hover:border-brand-dark"
               >
                 See How It Works
               </Link>
             </div>
 
             {/* Trust Badges */}
-            <div className="grid grid-cols-3 gap-sm pt-lg md:max-w-md">
-              <div className="animate-enter-up rounded-lg border border-neutral-200 bg-white/70 p-md text-center backdrop-blur-sm [animation-delay:120ms]">
-                <p className="text-xl font-bold text-brand">500+</p>
-                <p className="text-xs text-neutral-600">Active Students</p>
+            <div className="grid grid-cols-3 gap-base pt-2xl md:max-w-md">
+              <div className="animate-enter-up rounded-lg border-2 border-white bg-white/90 p-lg text-center shadow-md backdrop-blur-sm [animation-delay:120ms]">
+                <p className="text-2xl font-bold text-brand">500+</p>
+                <p className="text-xs font-semibold text-neutral-600 mt-sm">Active Students</p>
               </div>
-              <div className="animate-enter-up rounded-lg border border-neutral-200 bg-white/70 p-md text-center backdrop-blur-sm [animation-delay:220ms]">
-                <p className="text-xl font-bold text-success">98%</p>
-                <p className="text-xs text-neutral-600">Satisfaction Rate</p>
+              <div className="animate-enter-up rounded-lg border-2 border-white bg-white/90 p-lg text-center shadow-md backdrop-blur-sm [animation-delay:220ms]">
+                <p className="text-2xl font-bold text-success">98%</p>
+                <p className="text-xs font-semibold text-neutral-600 mt-sm">Satisfaction Rate</p>
               </div>
-              <div className="animate-enter-up rounded-lg border border-neutral-200 bg-white/70 p-md text-center backdrop-blur-sm [animation-delay:320ms]">
-                <p className="text-xl font-bold text-accent">24/7</p>
-                <p className="text-xs text-neutral-600">Support Available</p>
+              <div className="animate-enter-up rounded-lg border-2 border-white bg-white/90 p-lg text-center shadow-md backdrop-blur-sm [animation-delay:320ms]">
+                <p className="text-2xl font-bold text-accent">24/7</p>
+                <p className="text-xs font-semibold text-neutral-600 mt-sm">Support Available</p>
               </div>
             </div>
           </div>
 
           {/* Right: Hero Image */}
           <div className="relative hidden md:block">
-            <div className="animate-enter-scale relative mx-auto max-w-lg rounded-2xl border border-white/70 bg-white/85 p-lg shadow-2xl backdrop-blur-sm overflow-hidden">
+            <div className="animate-enter-scale relative mx-auto max-w-lg rounded-3xl border-2 border-white shadow-2xl overflow-hidden ring-1 ring-brand/10">
               <Image
                 src="https://images.pexels.com/photos/6146970/pexels-photo-6146970.jpeg"
                 alt="Happy students studying together with Baptist ICT, enjoying campus life and collaborative learning"
                 width={600}
                 height={500}
-                className="h-auto w-full object-cover rounded-lg"
+                className="h-auto w-full object-cover"
                 priority
               />
 
               {/* Floating Info Card 1 */}
-              <div className="animate-float-soft absolute -left-8 top-8 rounded-xl border border-neutral-200 bg-white p-md shadow-lg">
-                <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500">
+              <div className="animate-float-soft absolute -left-6 top-8 rounded-xl border-2 border-white bg-white p-md shadow-xl">
+                <p className="text-xs font-semibold uppercase tracking-wide text-brand">
                   Instant Access
                 </p>
                 <p className="text-sm font-bold text-neutral-900">
@@ -196,8 +196,8 @@ export default function Home() {
               </div>
 
               {/* Floating Info Card 2 */}
-              <div className="animate-float-soft absolute -bottom-8 right-6 rounded-xl border border-neutral-200 bg-white p-md shadow-lg [animation-delay:800ms]">
-                <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500">
+              <div className="animate-float-soft absolute -bottom-6 right-6 rounded-xl border-2 border-white bg-white p-md shadow-xl [animation-delay:800ms]">
+                <p className="text-xs font-semibold uppercase tracking-wide text-brand">
                   Real-Time Updates
                 </p>
                 <p className="text-sm font-bold text-neutral-900">
