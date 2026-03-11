@@ -111,23 +111,23 @@ export default function Home() {
       </header>
 
       {/* ==================== PHASE 1: HERO SECTION ==================== */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-brand-light to-white py-2xl md:py-3xl">
+      <section className="relative overflow-hidden bg-gradient-to-b from-brand-light via-blue-50 to-white py-3xl md:py-4xl">
         <div className="pointer-events-none absolute inset-0">
           <div className="hero-orb hero-orb-one" />
           <div className="hero-orb hero-orb-two" />
         </div>
 
-        <div className="relative mx-auto grid max-w-7xl items-center gap-xl px-md md:grid-cols-2 lg:gap-2xl">
+        <div className="relative mx-auto grid max-w-7xl items-center gap-xl px-md md:grid-cols-2 lg:gap-3xl">
           {/* Left: Text Content */}
-          <div className="space-y-lg animate-enter-up">
+          <div className="space-y-xl animate-enter-up">
             {/* Badge */}
-            <div className="badge-glow inline-flex items-center gap-sm rounded-full border border-brand/20 bg-white/70 px-4 py-2 text-sm font-medium text-brand backdrop-blur-sm">
+            <div className="badge-glow inline-flex items-center gap-sm rounded-full border-2 border-brand/30 bg-white/80 px-4 py-2 text-sm font-semibold text-brand backdrop-blur-md shadow-sm">
               <span className="h-2 w-2 animate-pulse rounded-full bg-success" />
               For Students, By Students at Heart
             </div>
 
             {/* Headline */}
-            <h1 className="text-4xl font-bold leading-tight text-neutral-900 md:text-5xl lg:text-6xl">
+            <h1 className="text-5xl font-bold leading-tight text-neutral-900 md:text-6xl lg:text-7xl">
               Your Path to Academic Success{' '}
               <span className="hero-gradient-shift bg-clip-text text-transparent">
                 Starts Here.

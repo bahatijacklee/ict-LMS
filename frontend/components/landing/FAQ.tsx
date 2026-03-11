@@ -25,20 +25,20 @@ export function FAQ({ items }: FAQProps) {
       {items.map((item, index) => (
         <div
           key={index}
-          className="rounded-lg border border-neutral-200 overflow-hidden"
+          className="rounded-lg border-2 border-neutral-200 overflow-hidden shadow-sm transition-all duration-260 hover:border-brand/30 hover:shadow-md"
         >
           <button
             onClick={() =>
               setExpandedIndex(expandedIndex === index ? null : index)
             }
-            className="w-full flex items-center justify-between gap-lg p-lg bg-white hover:bg-neutral-50 transition-colors"
+            className="w-full flex items-center justify-between gap-lg p-lg bg-white hover:bg-brand-light/20 transition-colors duration-260"
           >
-            <h4 className="text-lg font-semibold text-neutral-900 text-left">
+            <h4 className="text-base font-semibold text-neutral-900 text-left">
               {item.question}
             </h4>
             <ChevronDown
               size={20}
-              className={`flex-shrink-0 text-brand transition-transform ${
+              className={`flex-shrink-0 text-brand transition-transform duration-300 ${
                 expandedIndex === index ? 'rotate-180' : ''
               }`}
             />
@@ -46,8 +46,8 @@ export function FAQ({ items }: FAQProps) {
 
           {/* Answer */}
           {expandedIndex === index && (
-            <div className="border-t border-neutral-200 bg-neutral-50 p-lg animate-slide-up">
-              <p className="text-neutral-600 leading-relaxed">{item.answer}</p>
+            <div className="border-t-2 border-neutral-200 bg-neutral-50 p-lg animate-slide-up">
+              <p className="text-sm text-neutral-600 leading-relaxed">{item.answer}</p>
             </div>
           )}
         </div>

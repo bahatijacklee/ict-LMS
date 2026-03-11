@@ -18,10 +18,10 @@ export function BenefitCard({
   description,
 }: BenefitCardProps) {
   return (
-    <div className="rounded-lg bg-neutral-50 p-lg transition-colors duration-220 hover:bg-neutral-100">
+    <div className="group rounded-lg bg-neutral-50 p-lg border border-neutral-200/50 transition-all duration-260 hover:bg-brand-light/40 hover:border-brand/30 hover:shadow-md">
       {/* Icon */}
-      <div className="mb-base flex h-12 w-12 items-center justify-center rounded-lg bg-brand-light">
-        <Icon size={24} className="text-brand" />
+      <div className="mb-base flex h-14 w-14 items-center justify-center rounded-lg bg-brand-light border border-brand/20 group-hover:border-brand/50 transition-colors duration-260">
+        <Icon size={28} className="text-brand" />
       </div>
 
       {/* Title */}

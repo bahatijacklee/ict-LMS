@@ -25,16 +25,16 @@ export function TestimonialCard({
   rating = 5,
 }: TestimonialCardProps) {
   return (
-    <div className="rounded-xl border border-neutral-200 bg-brand-light p-lg shadow-sm">
+    <div className="group rounded-xl border-2 border-brand-light bg-gradient-to-br from-brand-light/50 to-white p-lg shadow-md transition-all duration-260 hover:shadow-lg hover:border-brand/30">
       {/* Quote */}
-      <p className="mb-lg text-body text-neutral-900 italic leading-relaxed">
+      <p className="mb-lg text-sm text-neutral-900 italic leading-relaxed font-medium">
         "{quote}"
       </p>
 
       {/* Student Info Row */}
       <div className="flex items-center gap-base">
         {/* Avatar */}
-        <div className="relative h-12 w-12 flex-shrink-0">
+        <div className="relative h-12 w-12 flex-shrink-0 ring-2 ring-brand/20 rounded-full">
           <Image
             src={avatarUrl}
             alt={studentName}
@@ -46,7 +46,7 @@ export function TestimonialCard({
         {/* Name & Details */}
         <div className="flex-1">
           <p className="font-semibold text-neutral-900">{studentName}</p>
-          <p className="text-sm text-neutral-600">
+          <p className="text-xs text-neutral-600">
             {studentYear}, {studentMajor}
           </p>
         </div>
